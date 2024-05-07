@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class LocalKafkaProducer {
+public class KafkaMessageConsumer {
 
     final KafkaProducerConfig kafkaProducerConfig;
-    final LazyKafkaProducerProvider producerProvider;
+    final KafkaProducerProvider producerProvider;
 
     public void consume(String key, String message) {
 

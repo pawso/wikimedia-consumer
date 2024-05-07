@@ -5,7 +5,7 @@ import com.launchdarkly.eventsource.MessageEvent;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.pawel.wikimediaconsumer.producer.LocalKafkaProducer;
+import org.pawel.wikimediaconsumer.producer.KafkaMessageConsumer;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class EventSourceHandler implements EventHandler {
 
-    final LocalKafkaProducer kafkaProducer;
+    final KafkaMessageConsumer kafkaProducer;
 
     @Override
     public void onOpen() throws Exception {
