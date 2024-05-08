@@ -15,9 +15,13 @@ public class KafkaMessageConsumer {
     final KafkaProducerProvider producerProvider;
 
     public void consume(String key, String message) {
-
         var producer = producerProvider.get();
+
         ProducerRecord<String, String> record = new ProducerRecord<>(kafkaProducerConfig.getTopic(), message);
         producer.send(record);
+    }
+
+    public void close() {
+        producerProvider.deinit();
     }
 }

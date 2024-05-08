@@ -26,7 +26,6 @@ public class EventSourceConsumer implements ApplicationRunner {
         EventSource eventSource = builder.build();
         eventSource.start();
 
-        // we produce for 10 minutes and block the program until then
         try {
             TimeUnit.MINUTES.sleep(10);
         } catch (InterruptedException e) {

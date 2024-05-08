@@ -16,28 +16,27 @@ public class EventSourceHandler implements EventHandler {
     final KafkaMessageConsumer kafkaProducer;
 
     @Override
-    public void onOpen() throws Exception {
-
+    public void onOpen() {
     }
 
     @Override
-    public void onClosed() throws Exception {
-
+    public void onClosed() {
+        kafkaProducer.close();
     }
 
     @Override
-    public void onMessage(String s, MessageEvent messageEvent) throws Exception {
-        log.info("Received Wikimedia event: {}", messageEvent);
-        kafkaProducer.consume(null, messageEvent.toString());
+    public void onMessage(String s, MessageEvent messageEvent) {
+        log.info("Received Wikimedia event: {}", messageEvent.getData());
+        kafkaProducer.consume(null, messageEvent.getData());
     }
 
     @Override
-    public void onComment(String s) throws Exception {
+    public void onComment(String s) {
 
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        log.error("Error when reading stream", throwable);
     }
 }

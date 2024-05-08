@@ -17,4 +17,7 @@ public class KafkaProducerConfig {
     String keySerializer;
     String valueSerializer;
     String topic;
+    String lingerMs;
+    String batchSize;
+    String compressionType;
 }
