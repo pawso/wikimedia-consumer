@@ -11,8 +11,13 @@
 	<groupId>org.pawel</groupId>
 	<artifactId>wikimedia-consumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<name>wikimedia-consumer</name>
 	<description>Demo project for Spring Boot</description>
+	<modules>
+		<module>wikimedia-stream-reader</module>
+		<module>stream-writer</module>
+	</modules>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -84,8 +89,13 @@
 			<artifactId>javax.annotation-api</artifactId>
 			<version>1.3.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>5.1.2</version>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>

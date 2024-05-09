@@ -1,4 +1,4 @@
-package org.pawel.wikimediaconsumer.config;
+package org.pawel.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

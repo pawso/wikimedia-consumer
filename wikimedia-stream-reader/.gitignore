@@ -1,3 +1,2 @@
-stream-writer/src/main/resources/application-local.properties
 wikimedia-stream-reader/src/main/resources/application-local.properties
-.idea
+target

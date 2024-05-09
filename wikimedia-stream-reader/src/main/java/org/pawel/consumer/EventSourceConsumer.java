@@ -1,9 +1,10 @@
-package org.pawel.wikimediaconsumer.consumer;
+package org.pawel.consumer;
 
 import com.launchdarkly.eventsource.EventSource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.pawel.wikimediaconsumer.config.EventSourceConfig;
+
+import org.pawel.config.EventSourceConfig;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;

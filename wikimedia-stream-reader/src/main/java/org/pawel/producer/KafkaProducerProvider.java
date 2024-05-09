@@ -1,4 +1,4 @@
-package org.pawel.wikimediaconsumer.producer;
+package org.pawel.producer;
 
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.jetbrains.annotations.NotNull;
-import org.pawel.wikimediaconsumer.config.KafkaProducerConfig;
+import org.pawel.config.KafkaProducerConfig;
 import org.springframework.stereotype.Component;
 
 import java.util.Properties;
