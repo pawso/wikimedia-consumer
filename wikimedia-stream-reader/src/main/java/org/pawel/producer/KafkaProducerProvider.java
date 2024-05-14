@@ -1,6 +1,8 @@
 package org.pawel.producer;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -34,6 +36,8 @@ public class KafkaProducerProvider {
     }
 
     void deinit() {
+        producer.flush();
+        log.info("Closing provider");
         producer.close();
         producer = null;
     }
@@ -42,10 +46,6 @@ public class KafkaProducerProvider {
     private Properties extractProperties() {
         Properties properties = new Properties();
 
-        properties.put("sasl.mechanism", kafkaProducerConfig.getSaslMechanism());
-        properties.put("security.protocol", kafkaProducerConfig.getSecurityProtocol());
-        properties.put("sasl.jaas.config", kafkaProducerConfig.getSaslJaasConfig());
-
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProducerConfig.getBootstrapServers());
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, kafkaProducerConfig.getKeySerializer());
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, kafkaProducerConfig.getValueSerializer());
@@ -53,6 +53,10 @@ public class KafkaProducerProvider {
         properties.put(ProducerConfig.LINGER_MS_CONFIG, kafkaProducerConfig.getLingerMs());
         properties.put(ProducerConfig.BATCH_SIZE_CONFIG, kafkaProducerConfig.getBatchSize());
         properties.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, kafkaProducerConfig.getCompressionType());
+
+        properties.put("sasl.mechanism", kafkaProducerConfig.getSaslMechanism());
+        properties.put("security.protocol", kafkaProducerConfig.getSecurityProtocol());
+        properties.put("sasl.jaas.config", kafkaProducerConfig.getSaslJaasConfig());
 
         return properties;
     }

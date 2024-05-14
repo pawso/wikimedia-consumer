@@ -18,20 +18,39 @@ import java.util.concurrent.TimeUnit;
 public class EventSourceConsumer implements ApplicationRunner {
 
     final EventSourceConfig eventSourceConfig;
-
     final EventSourceHandler eventSourceHandler;
 
-    public void run(ApplicationArguments arg0) {
+    public void run(ApplicationArguments arg0) throws Exception {
         String url = eventSourceConfig.getUrl();
         EventSource.Builder builder = new EventSource.Builder(eventSourceHandler, URI.create(url));
         EventSource eventSource = builder.build();
-        eventSource.start();
 
         try {
+            eventSource.start();
+            setupShutdownHook();
             TimeUnit.MINUTES.sleep(10);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
             log.info("EventSourceConsumer thread interrupted");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            eventSource.close();
+            eventSourceHandler.close();
+            System.out.println("EventSourceConsumer: closed");
         }
+    }
+
+    private void setupShutdownHook() {
+        final Thread mainThread = Thread.currentThread();
+        Runtime.getRuntime().addShutdownHook( new Thread() { public void run() {
+            log.info("Shutdown!");
+            mainThread.interrupt();
+            try {
+                mainThread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        });
     }
 }

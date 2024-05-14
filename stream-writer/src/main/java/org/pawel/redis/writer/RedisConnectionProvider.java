@@ -13,15 +13,18 @@ import javax.annotation.PostConstruct;
 public class RedisConnectionProvider {
 
     private final RedisConnectionConfig redisConnectionConfig;
-    private Jedis jedis;
+    private Jedis jedis = null;
 
-    @PostConstruct
-    void init() {
-        jedis = new Jedis(redisConnectionConfig.getUrl(), Integer.parseInt(redisConnectionConfig.getPort()), true);
-        jedis.auth(redisConnectionConfig.getSecret());
+    public Jedis instance() {
+        if (jedis == null) {
+            initializeInstance();
+        }
+
+        return jedis;
     }
 
-    Jedis instance() {
-        return jedis;
+    private void initializeInstance() {
+        jedis = new Jedis(redisConnectionConfig.getUrl(), Integer.parseInt(redisConnectionConfig.getPort()), true);
+        jedis.auth(redisConnectionConfig.getSecret());
     }
 }

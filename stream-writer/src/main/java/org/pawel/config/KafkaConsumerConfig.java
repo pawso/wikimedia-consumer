@@ -14,5 +14,8 @@ public class KafkaConsumerConfig {
     String deserializer;
     String topic;
     String groupId;
-    String earliest;
+    String autoOffsetReset;
+    String saslMechanism;
+    String securityProtocol;
+    String saslJaasConfig;
 }

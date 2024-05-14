@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class EventSourceHandler implements EventHandler {
+public class EventSourceHandler implements EventHandler, AutoCloseable {
 
     final KafkaMessageProducer kafkaProducer;
 
@@ -21,7 +21,6 @@ public class EventSourceHandler implements EventHandler {
 
     @Override
     public void onClosed() {
-        kafkaProducer.close();
     }
 
     @Override
@@ -38,5 +37,10 @@ public class EventSourceHandler implements EventHandler {
     @Override
     public void onError(Throwable throwable) {
         log.error("Error when reading stream", throwable);
+    }
+
+    @Override
+    public void close() throws Exception {
+        kafkaProducer.close();
     }
 }
